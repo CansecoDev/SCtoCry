@@ -1,15 +1,17 @@
-'# SctoCry File Importer vesrion 1.0_022514
+'# SctoCry File Importer version 1.0c_051914
 '# Language: VBScript
-'# Author: D.Ring aka Wölfhelm
-'# Date: 022714
+'# Original author: D.Ring aka Wölfhelm
+'# Some fixes: Sr. Canseco aka C4N
+'# Date: 051914
 '#
-'# Update Notes - Changed SC detection code to use a diffrent registry section for installation detection
+'# Update Notes - Added elevation to run as Admin, fixed directory quotas and some misprints
+'#              - Changed SC detection code to use a different registry section for installation detection
 '#              - Changed SC detection code to check both 64bit(WOW6432) and 32bit registry locations
 '#              - corrected a spelling error (determined) 
 '#              - Changed z-Zip code to check for both 32bit and 64bit versions
 '#              - Added check for \ in zPath
 '#              - Changed the method of execution for 7-Zip to a shell command. This allows the window to display the processing it is doing.
-'#              - Changing the shell excution also allows the script to shell commands at a higher security level (Commands run like a shortcut on Windows instead of a DOS command)
+'#              - Changing the shell execution also allows the script to shell commands at a higher security level (Commands run like a shortcut on Windows instead of a DOS command)
 '# Released under:
 '#		    GNU GENERAL PUBLIC LICENSE
 '#		       Version 2, June 1991
@@ -25,11 +27,11 @@
 
 '# Now that the legal stuff is out of the way...
 
-' # Overview:
-'# Being new to the CryEngine SDK/Sandbox I was supprise by the diffrent issues I ran into as I attempted to
+'# Overview:
+'# Being new to the CryEngine SDK/Sandbox I was surprise by the different issues I ran into as I attempted to
 '# open Star Citizen files with the CryEngine Sandbox editor.  I decided to work towards a completely automated 
-'# method of setting up the files needed to view Star Citizen assets and maintain a seperate from the default installation
-'# of the CryEngine Sandbox that can be eazily updated as new versions of Star Citizen are released,  
+'# method of setting up the files needed to view Star Citizen assets and maintain a separate from the default installation
+'# of the CryEngine Sandbox that can be easily updated as new versions of Star Citizen are released,  
   
 '# What the script does
 '# Insures Star Citizen is installed finds the install path
@@ -37,13 +39,13 @@
 '# Insures CryEngine Sandbox SDK is installed finds the install path
 
 '# Extracts all Star Citizen files from the StarCitizen\Data directory into a folder in the Cry Engine named GameStarCitizen.
-'# Renames all .chrparams file extentions into .smaraprhc (it reverses the name of eaze of identifications and to reverse the process.
+'# Renames all .chrparams file extensions into .smaraprhc (it reverses the name of ease of identifications and to reverse the process.
 '# Creates a game.cfg
 '# Creates the folder and file \GameStarCitizen\Materials\material_layers_default.mtl
 '# Creates the folder and file \GameStarCitizen\Scripts\physics.lua
 '# Logs all extracted files - This log is give a unique name every time it is created.
-'# Logs all renaned file extentions
-'# Tracks all criticatial functons with logging.
+'# Logs all renamed file extensions
+'# Tracks all critical functions with logging.
 '# Provides user information for each step.
 
 'ELEVATION
@@ -135,7 +137,7 @@ sub RenameAndMod
             If bolExitScript = "True" then
                exit sub
             end if
-              'wait for the files to be competely unpacked...
+              'wait for the files to be completely unpacked...
               Do while CheckForService("7z.exe") = "running"
                  WScript.Sleep 1000
               Loop
@@ -537,7 +539,6 @@ End If
                  WScript.Sleep 500
               Loop
               WinRun zPath & "7z.exe"," x " & chr(34) & strPathFrom & chr(34) & "\" & folderIdx.Name & " -o" & chr(34) & strPathTo & "\GameStarCitizen" & chr(34) & " -r -y"
-              'Prior command not used currently: WinRun(chr(34) & zPath & chr(34) & "7z x" & chr(34) & strPathFrom & "\" & chr(34) & folderIdx.Name & " -o" & chr(34) & strPathTo & chr(34) & " -r -y")
       End select
   Next
 end function
