@@ -46,6 +46,13 @@
 '# Tracks all criticatial functons with logging.
 '# Provides user information for each step.
 
+'ELEVATION
+If Not WScript.Arguments.Named.Exists("elevate") Then
+  CreateObject("Shell.Application").ShellExecute WScript.FullName _
+    , WScript.ScriptFullName & " /elevate", "", "runas", 1
+  WScript.Quit
+End If
+
 'START
 Dim strDateTimeStamp, objFSO, strFileCount, strFolderCount, logfile, intFCount1, intFCount2, objLogFile, intTFC
 dim strNoRepeats, strLastPath, intRunningFolderCount, intRunningFileCount
