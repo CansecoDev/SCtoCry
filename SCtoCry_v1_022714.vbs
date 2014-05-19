@@ -536,7 +536,7 @@ End If
               Do while CheckForService("7z.exe") = "running"
                  WScript.Sleep 500
               Loop
-              WinRun zPath & "7z.exe"," x " & strPathFrom & "\" & folderIdx.Name & " -o" & strPathTo & " -r -y"
+              WinRun zPath & "7z.exe"," x " & chr(34) & strPathFrom & chr(34) & "\" & folderIdx.Name & " -o" & chr(34) & strPathTo & "\GameStarCitizen" & chr(34) & " -r -y"
               'Prior command not used currently: WinRun(chr(34) & zPath & chr(34) & "7z x" & chr(34) & strPathFrom & "\" & chr(34) & folderIdx.Name & " -o" & chr(34) & strPathTo & chr(34) & " -r -y")
       End select
   Next
